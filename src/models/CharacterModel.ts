@@ -1,19 +1,40 @@
 export function getDefaultCharacter() { 
+    console.log('check');
     return {
-            CharacterInfo : {
-                CharacterName : 'Amenhotep',
-                PlayerName : 'Buddy',
-                Race : 'Half Orc',
-                Class : 'Wizard'
-            },
-            Abilities : {
-                Strength: 0,
-                Dexterity: 0,
-                Constitution: 0,
-                Intelligence: 0,
-                Wisdom: 0,
-                Charisma: 0
+        ac: 10,
+        level: 1,
+        getSuperClass(){
+    
+            let lowerClass = this.characterInfo.class.toLowerCase();
+    
+            if (lowerClass === 'wizard' || lowerClass === 'illusionist'){
+                return 'Wizard';
             }
-        
-        };
-    }
+            if (lowerClass === 'bard' || lowerClass === 'thief'){
+                return 'Rogue';
+            }
+            if (lowerClass === 'druid' || lowerClass === 'cleric'){
+                return 'Priest';
+            }
+            if (lowerClass === 'fighter' || lowerClass === 'paladin' || lowerClass === 'ranger'){
+                return 'Warrior';
+            }
+            else {
+                return 'unknown';}
+        },
+        characterInfo : {
+            characterName : 'Amenhotep',
+            playerName : 'Buddy',
+            race : 'Half Orc',
+            class : 'Wizard'
+        },
+        abilities : {
+            strength: 0,
+            dexterity: 0,
+            constitution: 0,
+            intelligence: 0,
+            wisdom: 0,
+            charisma: 0
+        }
+    };
+}

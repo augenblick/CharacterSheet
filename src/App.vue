@@ -4,9 +4,12 @@ import CharacterSheet from './views/CharacterSheet.vue'
 
 <template>
   <header>
-    <img alt="Character Sheet Logo" class="logo" src="@/assets/temp-logo.png" width="125" height="125" />
-
+    <div>
+      <img alt="Character Sheet Logo" class="logo" src="@/assets/temp-logo.png" width="125" height="125" />
+      <div class="tiny">this is a logo, not character art. :P</div>
+    </div>
     <div class="wrapper">
+      <hr />
       <CharacterSheet />
     
     </div>
@@ -78,6 +81,10 @@ nav a:first-of-type {
     padding: 1rem 0;
     margin-top: 1rem;
   }
+}
+
+.tiny{
+  font-size:x-small;
 }
 
 </style>
