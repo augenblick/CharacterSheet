@@ -9,7 +9,7 @@ import { defineComponent } from 'vue'
 export default defineComponent({
       data(){
         return {
-          characterModel : null
+          characterModel : {type: Object, default: null}
         }
       },
       created(){
@@ -17,6 +17,9 @@ export default defineComponent({
       },
       methods:{
         loadInitialData(){
+          this.characterModel = getDefaultCharacter();
+        },
+        reloadCharacterData(){
           this.characterModel = getDefaultCharacter();
         }
       }
@@ -26,8 +29,9 @@ export default defineComponent({
 
 <template>
   <main>
-    <CharacterInfo :characterInfo=characterModel.CharacterInfo>{{ characterModel.CharacterInfo.CharacterName }}</CharacterInfo>
+    <CharacterInfo :characterInfo=characterModel.CharacterInfo></CharacterInfo>
   </main>
+  <button @click="reloadCharacterData">Reload Character</button>
 </template>
 
 
