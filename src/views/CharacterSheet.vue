@@ -1,33 +1,34 @@
 <script setup>
+
 import CharacterInfo from '../components/CharacterInfo.vue'
-import { getDefaultCharacter } from '../../models/CharacterModel.js'
+import { getDefaultCharacter } from '../models/CharacterModel.ts'
+import { defineComponent } from 'vue'
 </script>
+
+<script>
+export default defineComponent({
+      data(){
+        return {
+          characterModel : null
+        }
+      },
+      created(){
+        this.loadInitialData();
+      },
+      methods:{
+        loadInitialData(){
+          this.characterModel = getDefaultCharacter();
+        }
+      }
+  })
+</script>
+
 
 <template>
   <main>
-    <character-info :characterInfo=characterModel.CharacterInfo>{{ characterModel.CharacterInfo.CharacterName }}</character-info>
+    <CharacterInfo :characterInfo=characterModel.CharacterInfo>{{ characterModel.CharacterInfo.CharacterName }}</CharacterInfo>
   </main>
 </template>
 
-<script>
 
-export default {
-  setup() {
-    
-  },
-  data(){
-    return {
-      characterModel : null
-    }
-  },
-  created(){
-    this.characterModel = getDefaultCharacter();
-  },
-  methods:{
-
-  }
-}
-
-
-</script>
 

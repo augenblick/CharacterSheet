@@ -1,4 +1,6 @@
 <script setup>
+import { objectToString, propsToAttrMap } from '@vue/shared';
+
 defineProps({
   characterInfo:{
     type: Object,
@@ -27,26 +29,4 @@ h1 {
   top: -10px;
 }
 </style>
-
-<script>
-import { objectToString, propsToAttrMap } from '@vue/shared';
-
-export default {
-  setup() {
-    
-  },
-  props:{
-    name : {
-      type: String, 
-      default: 'Typhoid Mary'}
-  },
-  data(){
-    return {
-      coolbuddy: 'Venus'
-    }
-  }
-}
-
-
-</script>
 
