@@ -20,25 +20,28 @@ export default defineComponent({
         this.loadInitialData();
       },
       mounted(){
+		// godMode, buffDebuffMode
+		// TODO: this could probably be cleaned up
         document.addEventListener('keydown', (event) =>{
-          console.log(event);
-          if ((event.code === 'ShiftLeft' || event.code === 'ShiftRight') && !(event.code === 'ControlLeft')){
-            this.buffDebuffMode = true;
-          }
-          if ((event.code === 'ShiftLeft' || event.code === 'ShiftRight') && event.code === 'ControlLeft'){
-            this.godEditMode = true;
-          }
+			if (((event.code === 'ShiftLeft' || event.code === 'ShiftRight') && event.ctrlKey) || ((event.code === 'ControlLeft' || event.code === 'ControlRight') && event.shiftKey)){
+				this.godEditMode = true;
+				this.buffDebuffMode = false;
+			}
+			else if (event.code === 'ShiftLeft' || event.code === 'ShiftRight'){
+				this.buffDebuffMode = true;
+			}
         });
         document.addEventListener('keyup', (event) =>{
-          console.log(event);
           if (event.code === 'ShiftLeft' || event.code === 'ShiftRight'){
             this.buffDebuffMode = false;
             this.godEditMode = false;
           }
-          if (event.code === 'ControlLeft'){
+          if (!event.ctrlKey){
             this.godEditMode = false;
+			if (event.shiftKey){
+				this.buffDebuffMode = true;
+			}
           }
-
         });
       },
       methods:{
@@ -55,21 +58,13 @@ export default defineComponent({
 
 <template>
   <main>
-    <CharacterInfo :characterModel=characterModel></CharacterInfo>
+    <CharacterInfo :characterModel=characterModel :godEditMode="godEditMode" :buffDebuffMode="buffDebuffMode"></CharacterInfo>
     <SavingThrows :characterModel=characterModel></SavingThrows>
     <ArmorClass :characterModel=characterModel></ArmorClass>
   
     <h3>'{{ characterModel.characterInfo.characterName }}' the level {{characterModel.level}} {{ characterModel.characterInfo.race }} {{ characterModel.characterInfo.class.className }}, played by {{ characterModel.characterInfo.playerName }}.</h3>
     <br/>
     <button @click="reloadCharacterData">Reload Character</button>
-    <div class="tiny">buffDebuffMode: {{ buffDebuffMode }}</div>
-    <div class="tiny">godEditMode: {{ godEditMode }}</div>
   </main>
 </template>
-
-<style scoped>
-.tiny{
-  font-size:x-small;
-}
-</style>
 
