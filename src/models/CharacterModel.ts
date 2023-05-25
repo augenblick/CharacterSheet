@@ -4,7 +4,8 @@ export function getDefaultCharacter() {
         ac: 10,
         level: 1,
         getSuperClass(){
-    
+            return this.characterInfo.class.classGroup.toLowerCase();
+            /*
             let lowerClass = this.characterInfo.class.toLowerCase();
     
             if (lowerClass === 'wizard' || lowerClass === 'illusionist'){
@@ -21,12 +22,13 @@ export function getDefaultCharacter() {
             }
             else {
                 return 'unknown';}
+                */
         },
         characterInfo : {
             characterName : 'Amenhotep',
             playerName : 'Buddy',
             race : 'Half Orc',
-            class : 'Wizard'
+            class : {className:'Wizard', classGroup:'Wizard'}
         },
         abilities : {
             strength: 0,

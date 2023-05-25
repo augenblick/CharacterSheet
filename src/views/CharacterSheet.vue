@@ -35,7 +35,7 @@ export default defineComponent({
     <SavingThrows :characterModel=characterModel></SavingThrows>
     <ArmorClass :characterModel=characterModel></ArmorClass>
   
-    <h3>'{{ characterModel.characterInfo.characterName }}' the level {{characterModel.level}} {{ characterModel.characterInfo.race }} {{ characterModel.characterInfo.class }}, played by {{ characterModel.characterInfo.playerName }}.</h3>
+    <h3>'{{ characterModel.characterInfo.characterName }}' the level {{characterModel.level}} {{ characterModel.characterInfo.race }} {{ characterModel.characterInfo.class.className }}, played by {{ characterModel.characterInfo.playerName }}.</h3>
     <br/>
     <button @click="reloadCharacterData">Reload Character</button>
   </main>

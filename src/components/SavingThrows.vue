@@ -37,6 +37,7 @@
         },
         data(){ 
             return{
+                // 2e Player's Handbook: Table 60
                 savingThrowData:[
                     {
                         superClass: 'priest',
@@ -207,8 +208,10 @@
         },
         methods:{
             getSaveDataSet(){
-                let superClassSet = this.savingThrowData.find(set => set.superClass === this.characterModel.getSuperClass().toLowerCase());
+                let superClassSet = this.savingThrowData.find(set => set.superClass === this.characterModel.characterInfo.class.classGroup.toLowerCase());
                 if (typeof superClassSet === 'undefined') { return null; }
+
+                
                 
                 let dataSet = superClassSet.tiers.find(saveTier => this.characterModel.level >= saveTier.minLevel && this.characterModel.level <= saveTier.maxLevel)
                 
