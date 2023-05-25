@@ -1,3 +1,6 @@
+// TODO: This almost certainly won't be the only screen, ultimately.  
+// Create a shell that manages everything (godmode, buffdebuff, styling, etc.) and wrap this component in it.
+
 <script setup>
 
 import CharacterInfo from '../components/CharacterInfo.vue';
@@ -12,8 +15,8 @@ export default defineComponent({
       data(){
         return {
           characterModel : {type: Object, default: null},
-          buffDebuffMode : false,
-          godEditMode: false
+          buffDebuffMode : {type: Boolean, default: false},
+          godEditMode: {type: Boolean, default: false}
         }
       },
       created(){
@@ -22,6 +25,8 @@ export default defineComponent({
       mounted(){
 		// godMode, buffDebuffMode
 		// TODO: this could probably be cleaned up
+    // TODO: using shift is mucking this up...
+    // TODO: keyup not registering if dropdown is clicked
         document.addEventListener('keydown', (event) =>{
 			if (((event.code === 'ShiftLeft' || event.code === 'ShiftRight') && event.ctrlKey) || ((event.code === 'ControlLeft' || event.code === 'ControlRight') && event.shiftKey)){
 				this.godEditMode = true;
@@ -57,7 +62,7 @@ export default defineComponent({
 
 
 <template>
-  <main>
+  <main style="display:grid">
     <CharacterInfo :characterModel=characterModel :godEditMode="godEditMode" :buffDebuffMode="buffDebuffMode"></CharacterInfo>
     <SavingThrows :characterModel=characterModel></SavingThrows>
     <ArmorClass :characterModel=characterModel></ArmorClass>
