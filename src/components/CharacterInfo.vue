@@ -6,14 +6,14 @@
     <div :class="{buffDebuffInput: buffDebuffMode === true, godEditInput: godEditMode === true}">
       <ul>
         <li><h2>Character Info</h2></li>
-        <li><label>Character Name: </label><input type="text" v-model="characterModel.characterInfo.characterName" :disabled="disableInput"/></li>
-        <li><label>Player Name: </label><input type="text" v-model="characterModel.characterInfo.playerName" :disabled="disableInput"/><br /></li>
-        <li><label>Race: </label><input type="text" v-model="characterModel.characterInfo.race" :disabled="disableInput"/></li>
+        <li><label>Character Name: </label><input-field :type="'string'" :v-model="characterModel.CharacterName" :disabled="disableInput"></input-field></li>
+        <li><label>Player Name: </label><input type="text" v-model="characterModel.PlayerName" :disabled="disableInput"/><br /></li>
+        <li><label>Race: </label><input type="text" v-model="characterModel.CharacterRace" :disabled="disableInput"/></li>
         <li><label>Class: </label>
-        <select v-model="characterModel.characterInfo.class" :disabled="disableInput">
-          <option v-for="classOption in classOptions" :value="classOption.value" :key="classOption.value">{{ classOption.value.className }}</option>
+        <select v-model="characterModel.CharacterClass" :disabled="disableInput">
+          <option v-for="classOption in classOptions" :value="classOption" :key="classOption">{{ classOption.ClassName }}</option>
         </select></li>
-        <li><label>Level: </label><input type="number" v-model="characterModel.level" :disabled="disableInput"/></li>
+        <li><label>Level: </label><input type="number" v-model="characterModel.Level" :disabled="disableInput"/></li>
       </ul>
     </div>
   </div>
@@ -28,7 +28,10 @@ h1 {
 </style>
 
 <script setup>
-  import { objectToString, propsToAttrMap } from '@vue/shared';
+
+  import { CharacterClass } from '../classes/CharacterModel';
+  import InputField from './InputField.vue';
+  
 
   defineProps({
     characterModel:{
@@ -55,14 +58,14 @@ h1 {
     data(){
       return{
         classOptions:[
-          {value: {className:'Fighter', classGroup:'Warrior'}},
-          {value: {className:'Druid', classGroup:'Priest'}},
-          {value: {className:'Cleric', classGroup:'Priest'}},
-          {value: {className:'Bard', classGroup:'Rogue'}},
-          {value: {className:'Thief', classGroup:'Rogue'}},
-          {value: {className:'Wizard', classGroup:'Wizard'}},
-          {value: {className:'Paladin', classGroup:'Warrior'}},
-          {value: {className:'Illusionist', classGroup:'Wizard'}},
+          new CharacterClass('Fighter', 'Warrior'),
+          new CharacterClass('Druid', 'Priest'),
+          new CharacterClass('Cleric', 'Priest'),
+          new CharacterClass('Bard', 'Rogue'),
+          new CharacterClass('Thief', 'Rogue'),
+          new CharacterClass('Wizard', 'Wizard'),
+          new CharacterClass('Paladin', 'Warrior'),
+          new CharacterClass('Illusionist', 'Wizard')
         ]
       }
     },
@@ -87,6 +90,11 @@ h1 {
   .godEditInput input:not(:disabled){
     text-shadow:1cap;
     color:rgb(207, 155, 76);
+  }
+
+
+  ul {
+    padding-inline-start: 0px;
   }
 
   li {

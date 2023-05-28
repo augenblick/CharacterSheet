@@ -208,12 +208,12 @@
         },
         methods:{
             getSaveDataSet(){
-                let superClassSet = this.savingThrowData.find(set => set.superClass === this.characterModel.characterInfo.class.classGroup.toLowerCase());
+                let superClassSet = this.savingThrowData.find(set => set.superClass === this.characterModel.CharacterClass.ClassGroup.toLowerCase());
                 if (typeof superClassSet === 'undefined') { return null; }
 
                 
                 
-                let dataSet = superClassSet.tiers.find(saveTier => this.characterModel.level >= saveTier.minLevel && this.characterModel.level <= saveTier.maxLevel)
+                let dataSet = superClassSet.tiers.find(saveTier => this.characterModel.Level >= saveTier.minLevel && this.characterModel.Level <= saveTier.maxLevel)
                 
                 return dataSet ?? {};
             }

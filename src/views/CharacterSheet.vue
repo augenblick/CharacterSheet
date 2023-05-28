@@ -1,28 +1,51 @@
 // TODO: This almost certainly won't be the only screen, ultimately.  
-// Create a shell that manages everything (godmode, buffdebuff, styling, etc.) and wrap this component in it.
+// Create a shell that manages everything (godmode, buffdebuff, base styling, etc.) and wrap this component in it.
+
+<template>
+  <main style="display:grid" :class="{buffDebuffInput: buffDebuffMode === true, godEditInput: godEditMode === true}">
+    <CharacterInfo :characterModel="characterModel" :godEditMode="godEditMode" :buffDebuffMode="buffDebuffMode"></CharacterInfo>
+    <Inventory :characterModel="characterModel" :godEditMode="godEditMode" :buffDebuffMode="buffDebuffMode" :itemList="itemList"></Inventory>
+    <SavingThrows :characterModel=characterModel></SavingThrows>
+    <ArmorClass :characterModel=characterModel></ArmorClass>
+  
+    <h3>'{{ characterModel.CharacterName }}' the level {{characterModel.Level}} {{ characterModel.CharacterRace }} {{ characterModel.CharacterClass.ClassName }}, played by {{ characterModel.PlayerName }}.</h3>
+    <br/>
+    <button @click="reloadCharacterData">Reload Character</button>
+  </main>
+</template>
+
+
 
 <script setup>
 
 import CharacterInfo from '../components/CharacterInfo.vue';
 import SavingThrows from '../components/SavingThrows.vue';
 import ArmorClass from '../components/ArmorClass.vue';
-import { getDefaultCharacter } from '../models/CharacterModel.ts';
+import Inventory from '../components/Inventory.vue';
+import { getDefaultCharacter, Character } from '../classes/CharacterModel.ts';
 import { defineComponent } from 'vue';
+import { getItems } from '../DataAccess';
+import { Item } from '../classes/ItemModels'
+
 </script>
 
 <script>
 export default defineComponent({
       data(){
         return {
-          characterModel : {type: Object, default: null},
+          characterModel : {type: Character, default: null},
           buffDebuffMode : {type: Boolean, default: false},
-          godEditMode: {type: Boolean, default: false}
+          godEditMode: {type: Boolean, default: false},
+          itemList: {type: Array}
         }
       },
       created(){
         this.loadInitialData();
       },
       mounted(){
+        this.itemList = getItems();
+        console.log('..............');
+        console.log(this.itemList);
 		// godMode, buffDebuffMode
 		// TODO: this could probably be cleaned up
     // TODO: using shift is mucking this up...
@@ -43,9 +66,9 @@ export default defineComponent({
           }
           if (!event.ctrlKey){
             this.godEditMode = false;
-			if (event.shiftKey){
-				this.buffDebuffMode = true;
-			}
+            if (event.shiftKey){
+              this.buffDebuffMode = true;
+            }
           }
         });
       },
@@ -60,16 +83,14 @@ export default defineComponent({
   })
 </script>
 
-
-<template>
-  <main style="display:grid">
-    <CharacterInfo :characterModel=characterModel :godEditMode="godEditMode" :buffDebuffMode="buffDebuffMode"></CharacterInfo>
-    <SavingThrows :characterModel=characterModel></SavingThrows>
-    <ArmorClass :characterModel=characterModel></ArmorClass>
-  
-    <h3>'{{ characterModel.characterInfo.characterName }}' the level {{characterModel.level}} {{ characterModel.characterInfo.race }} {{ characterModel.characterInfo.class.className }}, played by {{ characterModel.characterInfo.playerName }}.</h3>
-    <br/>
-    <button @click="reloadCharacterData">Reload Character</button>
-  </main>
-</template>
+<style scoped>
+.buffDebuffInput input:not(:disabled) {
+    text-shadow:1cap;
+    color:rgb(51, 131, 62);
+  }
+  .godEditInput input:not(:disabled){
+    text-shadow:1cap;
+    color:rgb(207, 155, 76);
+  }
+</style>
 
