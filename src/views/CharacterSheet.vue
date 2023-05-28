@@ -34,8 +34,8 @@ export default defineComponent({
       data(){
         return {
           characterModel : {type: Character, default: null},
-          buffDebuffMode : {type: Boolean, default: false},
-          godEditMode: {type: Boolean, default: false},
+          buffDebuffMode : false,
+          godEditMode: false,
           itemList: {type: Array}
         }
       },

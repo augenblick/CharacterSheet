@@ -6,7 +6,7 @@
     <div :class="{buffDebuffInput: buffDebuffMode === true, godEditInput: godEditMode === true}">
       <ul>
         <li><h2>Character Info</h2></li>
-        <li><label>Character Name: </label><input-field :type="'string'" :v-model="characterModel.CharacterName" :disabled="disableInput"></input-field></li>
+        <li><label>Character Name: </label><InputField :inputType="'string'" :modelValue="characterModel.CharacterName" :disabled="disableInput"></InputField></li>
         <li><label>Player Name: </label><input type="text" v-model="characterModel.PlayerName" :disabled="disableInput"/><br /></li>
         <li><label>Race: </label><input type="text" v-model="characterModel.CharacterRace" :disabled="disableInput"/></li>
         <li><label>Class: </label>

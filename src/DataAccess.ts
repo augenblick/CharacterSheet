@@ -1,16 +1,20 @@
 // temp methods for trying out designs and data form
 
+import axios from 'axios';
 import {Item} from './classes/ItemModels'
 
 
 export function getItems(): Item[]{
+    
+    axios.get('https://cat-fact.herokuapp.com/facts/random?animal_type=cat&amount=5')
+        .then(response => console.log(response));
     console.log('double check');
     return mockItemList;
 }
 
 export function writeItems(items: Item[]): boolean{
     let success = false;
-
+    
     return success;
 }
 

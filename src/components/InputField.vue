@@ -1,6 +1,6 @@
 <template>
     <span v-if="inputType === 'string'">
-        <input type="text" :disabled="disableInput" @update="$emit('update:modelValue', $event.target.value)" :value="modelValue"/>
+        <input type="text" :disabled="disableInput" @update="fieldUpdate()" :value="modelValue"/>
     </span>
     <div v-if="inputType === 'int'">
         <input type="number" :disabled="disableInput" @update="fieldUpdate" :v-model="model"/>
@@ -29,6 +29,7 @@
         },
         methods:{
             fieldUpdate(event){
+                debugger;
                 console.log(event);
                 model = value
             }
